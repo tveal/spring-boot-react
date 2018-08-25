@@ -36,6 +36,8 @@ Current Goals
 - Make a spring boot app that works in tomcat as a deployable war, **without** using any xml configuration
 - Use a port other than 8080, ex. 8090
 
+>For the original Spring Boot web app, see the [sample-web-app](https://gitlab.com/tveal/sample-web-app).
+
 ### Running the app
 
 Two options, both served at http://localhost:8090/spring-boot-react/
