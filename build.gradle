@@ -40,7 +40,10 @@ bootRun {
     }
 }
 
-//// cargo config:
+bootWar.dependsOn ':ui:build'
+bootWar.mustRunAfter ':ui:build'
+
+//// BEGIN: cargo config:
 def getAvailablePort() {
     return new ServerSocket(0).getLocalPort()
 }
@@ -94,7 +97,7 @@ task createCargoHome() {
     }
 }
 
-build.dependsOn ':ui:build'
 cargoStartLocal.dependsOn createCargoHome
 cargoRunLocal.dependsOn createCargoHome
 cargoRunLocal.dependsOn assemble
+//// BEGIN: cargo config:

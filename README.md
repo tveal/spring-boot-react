@@ -1,5 +1,25 @@
 # Shippable Spring Boot war with React UI
 
+## About
+
+This project came from the desire to have a React app that can be built and tested as an isolated ui project, but also configured to be embedded into a deployable war.
+
+- [Initial Build](#initial-build)
+- [React UI](#react-ui)
+- [Java Web App](#java-web-app)
+- [Dev Workflow](#dev-workflow)
+- [Helpful Resources](#helpful-resources)
+
+## Initial Build
+
+For now, this project requires you to have npm installed. Not sure if you have it? Run `npm -v`. If you have npm, a version will display.
+
+To build, run the following command from the root directory of this repo:
+
+```bash
+./gradlew build
+```
+
 ## React UI
 
 The UI is separated from the java src, and can be run without the backend for quicker frontend development (real-time code changes). To run just the frontend:
@@ -12,8 +32,6 @@ Served at http://localhost:3000/
 
 ## Java Web App
 
-This project is a sandbox for Spring Boot app(s) with Gradle
-
 Current Goals
 - Make a spring boot app that works in tomcat as a deployable war, **without** using any xml configuration
 - Use a port other than 8080, ex. 8090
@@ -22,19 +40,62 @@ Current Goals
 
 Two options, both served at http://localhost:8090/spring-boot-react/
 
+_Run from the root directory_
+
 1. As a deployable war in a tomcat instance with cargo plugin (check cargo config for outputFile location, as it logs separately):
 
-```bash
-./gradlew cargoRunLocal -i
-```
+    ```bash
+    ./gradlew cargoRunLocal -i
+    ```
 
 2. As a Spring Boot app (backend only - no UI):
 
+    ```bash
+    ./gradlew bootRun
+    ```
+
+### War Name and Root Context
+
+The war uses the `project.name` property for it's name. For this project, it's set in __settings.gradle__, as:
+
+```properties
+rootProject.name = 'spring-boot-react'
+```
+
+This Gradle project is also configured to use `project.name` as the root context for running the war. This way, if you clone this repo to a different root folder name (or rename the root folder), it will still use `rootProject.name` for the war and root context.
+
+## Dev Workflow
+
+Some useful commands for on-going dev work
+
+From ui directory:
 ```bash
+# serve ui for active changes
+npm start
+
+# manually running the ui build
+npm run build
+
+# update your node_modules from the package.json
+npm install
+
+# clean ui build output
+../gradlew clean
+```
+
+From root directory
+```bash
+# clean previous build output and build war
+./gradlew clean build
+
+# force rebuild of ui and assemble java web app before running war
+./gradlew clean cargoRunLocal -i
+
+# run just the backend (a faster startup if you need to test api endpoints)
 ./gradlew bootRun
 ```
 
-Helpful Resources:
+## Helpful Resources:
 
 - [Spring Boot Tutorial](https://spring.io/guides/gs/spring-boot/)
 - [Spring MVC Tutorial](https://spring.io/guides/gs/serving-web-content/)
