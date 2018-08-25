@@ -1,4 +1,15 @@
-# Sample Web App
+# Shippable Spring Boot war with React UI
+
+## React UI
+
+The UI is separated from the java src, and can be run without the backend for quicker frontend development (real-time code changes). To run just the frontend:
+
+```bash
+cd ui/
+npm start
+```
+
+## Java Web App
 
 This project is a sandbox for Spring Boot app(s) with Gradle
 
@@ -6,18 +17,18 @@ Current Goals
 - Make a spring boot app that works in tomcat as a deployable war, **without** using any xml configuration
 - Use a port other than 8080, ex. 8090
 
-## Running the app
+### Running the app
 
-1. As a Spring Boot app:
+1. As a deployable war in a tomcat instance with cargo plugin (check cargo config for outputFile location, as it logs separately):
 
 ```bash
-gradle bootRun
+./gradlew cargoRunLocal -i
 ```
 
-2. As a deployable war in a tomcat instance with cargo plugin (check cargo config for outputFile location, as it logs separately):
+2. As a Spring Boot app (backend only - no UI):
 
 ```bash
-gradle cargoRunLocal -i
+./gradlew bootRun
 ```
 
 Helpful Resources:
