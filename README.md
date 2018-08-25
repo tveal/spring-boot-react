@@ -8,6 +8,7 @@ The UI is separated from the java src, and can be run without the backend for qu
 cd ui/
 npm start
 ```
+Served at http://localhost:3000/
 
 ## Java Web App
 
@@ -18,6 +19,8 @@ Current Goals
 - Use a port other than 8080, ex. 8090
 
 ### Running the app
+
+Two options, both served at http://localhost:8090/spring-boot-react/
 
 1. As a deployable war in a tomcat instance with cargo plugin (check cargo config for outputFile location, as it logs separately):
 

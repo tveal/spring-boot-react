@@ -34,6 +34,12 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
+bootRun {
+    doFirst {
+        systemProperty "server.servlet.contextPath", "/$project.name"
+    }
+}
+
 //// cargo config:
 def getAvailablePort() {
     return new ServerSocket(0).getLocalPort()
@@ -51,13 +57,12 @@ cargo {
 
     deployable {
         file = file("$buildDir/$libsDirName/${project.name}.war")
-        context = "/"
+        context = project.name
     }
 
     local {
         homeDir = file(cargoHome)
         configHomeDir = file(cargoHome)
-        // extraClasspath = files("$buildDir/$libsDirName/${project.name}-${environment}.jar")
         outputFile = file('build/output.log')
         timeout = 60000
 
